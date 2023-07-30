@@ -1,0 +1,52 @@
+﻿using Domain.Entities;
+using Domain.Interfaces;
+using Infrastructure.Data;
+using Microsoft.AspNetCore.Http.HttpResults;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Infrastructure.Repositories
+{
+    public class UserRepository : IUserRepository
+    {
+        private readonly BlogContext _blogContext;
+
+        public UserRepository(BlogContext blogContext)
+        {
+            _blogContext = blogContext;
+        }
+        public User add(User user)
+        {
+            _blogContext.Users.Add(user);
+            _blogContext.SaveChanges();
+            return user;
+        }
+
+        public void delete(int id)
+        {
+            var user = _blogContext.Roles.SingleOrDefault(u => u.Id == id);
+            _blogContext.Roles.Remove(user);
+            _blogContext.SaveChanges();
+        }
+
+        public IEnumerable<User> GetAllUsers()
+        {
+            return _blogContext.Users;
+        }
+
+        public User GetById(int id)
+        {
+            return _blogContext.Users.SingleOrDefault(user => user.Id == id);
+        }
+
+        public void update(User user)
+        {
+            _blogContext.Users.Update(user);
+            _blogContext.SaveChanges();
+        }
+
+    }
+}
