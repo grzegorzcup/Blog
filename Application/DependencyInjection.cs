@@ -1,7 +1,9 @@
 ﻿using Application.Interfaces;
 using Application.Services;
+using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -21,6 +23,8 @@ namespace Application
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
+
+            services.AddScoped<IPasswordHasher<User>,PasswordHasher<User>>();
 
             return services;
         }
