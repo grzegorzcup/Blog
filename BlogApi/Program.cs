@@ -32,6 +32,7 @@ namespace BlogApi
             }
             
             app.UseHttpsRedirection();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

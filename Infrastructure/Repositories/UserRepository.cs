@@ -2,6 +2,7 @@
 using Domain.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,13 @@ namespace Infrastructure.Repositories
         public IEnumerable<User> GetAllUsers()
         {
             return _blogContext.Users;
+        }
+
+        public User GetByName(string name)
+        {
+            return _blogContext.Users
+                    .Include(u => u.Role)
+                    .FirstOrDefault(u => u.Name == name);
         }
 
         public User GetById(int id)

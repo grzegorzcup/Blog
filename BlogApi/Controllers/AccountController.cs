@@ -20,7 +20,7 @@ namespace BlogApi.Controllers
             _roleService = roleService;
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public IActionResult RegisterUser(RegisterUserDto userDto) 
         {
             if(!ModelState.IsValid)
@@ -32,8 +32,19 @@ namespace BlogApi.Controllers
                 return NotFound();
             }
             var user =_userService.RegisterUser(userDto);
-            return Ok(user);
+            return Ok();
 
         }
+        [HttpPost("login")]
+        public IActionResult Login(LoginDto login)
+        {
+            var token = _userService.Login(login);
+            if(token == null)
+            {
+                return NotFound();
+            }
+            return Ok(token);
+        }
+
     }
 }
