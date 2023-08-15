@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Resources;
 using Application.Resources;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Logging;
 
 namespace Application.Services
 {
@@ -24,18 +25,21 @@ namespace Application.Services
         private readonly IMapper _mapper;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly AuthenticationSettings _authenticationSettings;
+        private readonly ILogger<UserService> _logger;
 
-        public UserService(IUserRepository userRepository, IRoleRepository roleRepository, IMapper mapper,IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings)
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository, IMapper mapper,IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings, ILogger<UserService> logger)
         {
             _userRepository = userRepository;
             _roleRepository = roleRepository;
             _mapper = mapper;
             _passwordHasher = passwordHasher;
             _authenticationSettings = authenticationSettings;
+            _logger = logger;
         }
 
         public User RegisterUser(RegisterUserDto newuser)
         {
+            _logger.LogError($"test");
             if (newuser == null) throw new Exception("Brak danych usera");
 
             var user = _mapper.Map<User>(newuser);

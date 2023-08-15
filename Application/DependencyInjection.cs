@@ -14,6 +14,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.Resources;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore;
+using NLog;
+using Application.Middleware;
 
 namespace Application
 {
@@ -21,6 +24,7 @@ namespace Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration config)
         {
+
             var authenticationSettings = new AuthenticationSettings();
             config.GetSection("JWTConfig").Bind(authenticationSettings);
 
@@ -49,6 +53,8 @@ namespace Application
             services.AddScoped<IRoleService, RoleService>();
 
             services.AddScoped<IPasswordHasher<User>,PasswordHasher<User>>();
+
+            services.AddScoped<ErrorHandlingMiddleware>();
 
             return services;
         }

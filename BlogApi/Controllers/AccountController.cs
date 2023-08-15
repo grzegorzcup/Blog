@@ -23,14 +23,12 @@ namespace BlogApi.Controllers
         [HttpPost("register")]
         public IActionResult RegisterUser(RegisterUserDto userDto) 
         {
-            if(!ModelState.IsValid)
-            {
+            if(!ModelState.IsValid) 
                 return BadRequest(ModelState);
-            }
-            if(userDto == null)
-            {
+
+            if(userDto == null) 
                 return NotFound();
-            }
+            
             var user =_userService.RegisterUser(userDto);
             return Ok();
 
