@@ -39,8 +39,10 @@ namespace Application.Services
 
         public User RegisterUser(RegisterUserDto newuser)
         {
-            _logger.LogError($"test");
             if (newuser == null) throw new Exception("Brak danych usera");
+
+            if (newuser.RoleId == 0)
+                throw new Exception("brak ID roli uzytkownika");
 
             var user = _mapper.Map<User>(newuser);
             var hashedpassword = _passwordHasher.HashPassword(user, newuser.Password);

@@ -27,7 +27,8 @@ namespace Application.Middleware
                 _logger.LogError(ex, ex.Message);
 
                 context.Response.StatusCode = 500;
-                await context.Response.WriteAsync("Something went wrong");
+                context.Response.ContentType = "text/plain";
+                await context.Response.WriteAsync(ex.Message);
             }
         }
     }
