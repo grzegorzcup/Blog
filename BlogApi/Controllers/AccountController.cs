@@ -1,6 +1,7 @@
 ﻿using Application.DTO;
 using Application.Interfaces;
 using Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -9,6 +10,9 @@ namespace BlogApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(Roles ="Admin,User")]
+    //[Authorize]
+    //[Authorize(Policy = "HasEmail")]
     public class AccountController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -21,6 +25,7 @@ namespace BlogApi.Controllers
         }
 
         [HttpPost("register")]
+        //[AllowAnonymous]
         public IActionResult RegisterUser(RegisterUserDto userDto) 
         {
             if(!ModelState.IsValid) 

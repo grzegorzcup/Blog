@@ -62,6 +62,13 @@ namespace Application.Services
                 //new Claim("CreatedDate", user.Created.ToString("yyyy-MM-dd"))
             };
 
+            /*if (!string.IsNullOrEmpty(user.Email))
+            {
+                claims.Add(
+                        new Claim("Email" , user.Email)
+                    );
+            }*/
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.Secret));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expires = DateTime.UtcNow.AddDays(double.Parse(_authenticationSettings.JWTExpiredDays));

@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore;
 using NLog;
 using Application.Middleware;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Application
 {
@@ -45,10 +46,16 @@ namespace Application
                 };
             });
 
+            /*services.AddAuthorization(options =>
+            {
+                options.AddPolicy("HasEmail", services => services.RequireClaim("Email"));
+                options.AddPolicy("AtLeast18", services => services.AddRequirements(new MinimumAgeRequirements(18)));
+            });*/
+
             services.AddSingleton(authenticationSettings);
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
+            //services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementsHandler>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
 
