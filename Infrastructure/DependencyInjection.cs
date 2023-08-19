@@ -1,5 +1,6 @@
 ﻿using Domain.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,7 @@ namespace Infrastructure
         {
             services.AddScoped<IRoleRepository,RoleRepository>();
             services.AddScoped<IUserRepository,UserRepository>();
+            services.AddScoped<IPostRepository,PostRepository>();
 
             services.AddDbContext<BlogContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("BlogDB")));

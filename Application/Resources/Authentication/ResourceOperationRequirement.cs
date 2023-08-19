@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Resources
+namespace Application.Resources.Authentication
 {
     public enum ResourceOperation
     {
@@ -16,7 +16,7 @@ namespace Application.Resources
     }
     public class ResourceOperationRequirement : IAuthorizationRequirement
     {
-        public ResourceOperation Operation { get; set;}
+        public ResourceOperation Operation { get; set; }
 
         public ResourceOperationRequirement(ResourceOperation resourceOperation)
         {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Resources
+namespace Application.Resources.Authentication
 {
     public class AuthenticationSettings
     {

@@ -18,6 +18,7 @@ using Microsoft.AspNetCore;
 using NLog;
 using Application.Middleware;
 using Microsoft.AspNetCore.Authorization;
+using Application.Resources.Authentication;
 
 namespace Application
 {
@@ -58,6 +59,7 @@ namespace Application
             //services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementsHandler>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IPostService, PostService>();
 
             services.AddScoped<IPasswordHasher<User>,PasswordHasher<User>>();
 

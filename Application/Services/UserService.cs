@@ -2,9 +2,9 @@
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
-using Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +12,9 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Resources;
-using Application.Resources;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Logging;
+using Application.Resources.Authentication;
 
 namespace Application.Services
 {
