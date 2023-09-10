@@ -97,5 +97,38 @@ namespace Application.Services
 
             return token;
         }
+
+        public bool Remove(int id)
+        {
+            if (id == 0 || id == null)
+                return false;
+            _userRepository.delete(id);
+            return true;
+
+        }
+
+        public User Update(int id, UpdateUserDto user)
+        {
+            var toUpdate = _mapper.Map<User>(user);
+            toUpdate.Id = id;
+            if (toUpdate == null)
+                throw new Exception("nie ma takiego Użutkownika");
+            if (id == 0 || id == null)
+                throw new Exception("nie ma użytkownika z takim id");
+            _userRepository.update(toUpdate);
+            return toUpdate;
+        }
+
+        public IEnumerable<User> GetUsers()
+        {
+            var list = _userRepository.GetAllUsers();
+            return list;
+        }
+
+        public User GetById(int id)
+        {
+            var user = _userRepository.GetById(id);
+            return user;
+        }
     }
 }

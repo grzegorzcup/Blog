@@ -49,9 +49,9 @@ namespace Application.Services
             return post;
         }
 
-        public Post UpdatePost(int postId)
+        public Post UpdatePost(int postId,string description)
         {
-            var post = _postRepository.GetById(postId);
+            var post = new Post {Id = postId,Description = description };
             if(post != null)
                 _postRepository.Update(post);
             post = _postRepository.GetById(postId);

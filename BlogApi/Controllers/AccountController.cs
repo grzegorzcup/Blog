@@ -1,5 +1,6 @@
 ﻿using Application.DTO;
 using Application.Interfaces;
+using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -24,7 +25,7 @@ namespace BlogApi.Controllers
             _roleService = roleService;
         }
 
-        [HttpPost("register")]
+        [HttpPost("Register user")]
         //[AllowAnonymous]
         public IActionResult RegisterUser(RegisterUserDto userDto) 
         {
@@ -38,7 +39,7 @@ namespace BlogApi.Controllers
             return Ok();
 
         }
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public IActionResult Login(LoginDto login)
         {
             var token = _userService.Login(login);
@@ -48,6 +49,35 @@ namespace BlogApi.Controllers
             }
             return Ok(token);
         }
-
+        [HttpDelete("Remove User")]
+        public IActionResult RemoveUser(int id) 
+        {
+            var result = _userService.Remove(id);
+            if(result)
+                return Ok();
+            return NotFound();
+        }
+        [HttpPost("UpdateUser")]
+        public IActionResult UpdateUser(int id,UpdateUserDto userDto)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            _userService.Update(id,userDto);
+            return Ok();
+        }
+        [HttpGet("Get User")]
+        public IActionResult GetUser(int id)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var user = _userService.GetById(id);
+            return Ok(user);
+        }
+        [HttpGet("Get All Users")]
+        public IActionResult GetAllUsers()
+        {
+            var list = _userService.GetUsers();
+            return Ok(list);
+        }
     }
 }

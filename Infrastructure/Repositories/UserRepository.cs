@@ -28,8 +28,8 @@ namespace Infrastructure.Repositories
 
         public void delete(int id)
         {
-            var user = _blogContext.Roles.SingleOrDefault(u => u.Id == id);
-            _blogContext.Roles.Remove(user);
+            var user = _blogContext.Users.SingleOrDefault(u => u.Id == id);
+            _blogContext.Users.Remove(user);
             _blogContext.SaveChanges();
         }
 

@@ -43,7 +43,7 @@ namespace BlogApi.Controllers
             return Ok();
         }
         [HttpPost("Update")]
-        public IActionResult Update(int  id)
+        public IActionResult Update(int  id,string description)
         {
             if(!ModelState.IsValid)
             {
@@ -53,7 +53,7 @@ namespace BlogApi.Controllers
             {
                 return NotFound();
             }
-            var post = _postService.UpdatePost(id);
+            var post = _postService.UpdatePost(id,description);
             return Ok(post);
         }
         [HttpGet("GetPost")]
@@ -67,6 +67,7 @@ namespace BlogApi.Controllers
             {
                 return NotFound();
             }
+            
             var post = _postService.GetPost(id);
             return Ok(post);
         }

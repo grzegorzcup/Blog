@@ -11,7 +11,7 @@ namespace Application.Interfaces
     public interface IPostService
     {
         public Post AddPost(PostDto addPostDto);
-        public Post UpdatePost(int postId);
+        public Post UpdatePost(int postId, string description);
         public Post RemovePost(int postId);
         public Post GetPost(int postId);
         public IEnumerable<Post> GetAllPosts();

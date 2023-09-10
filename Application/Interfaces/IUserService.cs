@@ -15,5 +15,10 @@ namespace Application.Interfaces
         public string GenerateJWT(User user);
 
         public string Login(LoginDto login);
+
+        public bool Remove(int id);
+        public User Update(int id,UpdateUserDto user);
+        public IEnumerable<User> GetUsers();
+        public User GetById(int id);
     }
 }
