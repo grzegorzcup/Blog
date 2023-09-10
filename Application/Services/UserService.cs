@@ -109,13 +109,13 @@ namespace Application.Services
 
         public User Update(int id, UpdateUserDto user)
         {
-            var toUpdate = _mapper.Map<User>(user);
+            var toUpdate = new User() {Name = user.Name,Email = user.Email, RoleId = user.RoleId };
             toUpdate.Id = id;
             if (toUpdate == null)
                 throw new Exception("nie ma takiego Użutkownika");
             if (id == 0 || id == null)
                 throw new Exception("nie ma użytkownika z takim id");
-            _userRepository.update(toUpdate);
+            _userRepository.UpdateData(toUpdate);
             return toUpdate;
         }
 

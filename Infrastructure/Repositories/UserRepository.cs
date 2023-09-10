@@ -35,7 +35,8 @@ namespace Infrastructure.Repositories
 
         public IEnumerable<User> GetAllUsers()
         {
-            return _blogContext.Users;
+            return _blogContext.Users
+                        .Include(u=> u.Role);
         }
 
         public User GetByName(string name)
@@ -47,13 +48,21 @@ namespace Infrastructure.Repositories
 
         public User GetById(int id)
         {
-            return _blogContext.Users.SingleOrDefault(user => user.Id == id);
+            return _blogContext.Users
+                .Include(u => u.Role)
+                .SingleOrDefault(user => user.Id == id);
         }
 
-        public void update(User user)
+        public void UpdateData(User user)
         {
-            _blogContext.Users.Update(user);
-            _blogContext.SaveChanges();
+            using(var context = _blogContext)
+            {
+                context.Users.Attach(user);
+                context.Entry(user).Property(p => p.Name).IsModified = true;
+                context.Entry(user).Property(p => p.Email).IsModified=true;
+                context.Entry(user).Property(p => p.RoleId).IsModified = true;
+                context.SaveChanges();
+            }
         }
 
     }

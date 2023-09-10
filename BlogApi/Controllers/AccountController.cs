@@ -11,7 +11,7 @@ namespace BlogApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles ="Admin,User")]
+    [Authorize(Roles ="Admin,User")]
     //[Authorize]
     //[Authorize(Policy = "HasEmail")]
     public class AccountController : ControllerBase
@@ -26,7 +26,7 @@ namespace BlogApi.Controllers
         }
 
         [HttpPost("Register user")]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public IActionResult RegisterUser(RegisterUserDto userDto) 
         {
             if(!ModelState.IsValid) 
@@ -40,6 +40,7 @@ namespace BlogApi.Controllers
 
         }
         [HttpPost("Login")]
+        [AllowAnonymous]
         public IActionResult Login(LoginDto login)
         {
             var token = _userService.Login(login);
@@ -49,7 +50,7 @@ namespace BlogApi.Controllers
             }
             return Ok(token);
         }
-        [HttpDelete("Remove User")]
+        [HttpDelete("RemoveUser")]
         public IActionResult RemoveUser(int id) 
         {
             var result = _userService.Remove(id);
@@ -65,7 +66,7 @@ namespace BlogApi.Controllers
             _userService.Update(id,userDto);
             return Ok();
         }
-        [HttpGet("Get User")]
+        [HttpGet("GetUser")]
         public IActionResult GetUser(int id)
         {
             if(!ModelState.IsValid)
@@ -73,7 +74,7 @@ namespace BlogApi.Controllers
             var user = _userService.GetById(id);
             return Ok(user);
         }
-        [HttpGet("Get All Users")]
+        [HttpGet("GetAllUsers")]
         public IActionResult GetAllUsers()
         {
             var list = _userService.GetUsers();
