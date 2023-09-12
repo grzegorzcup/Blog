@@ -8,7 +8,7 @@ namespace BlogApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin,User")]
+    //[Authorize(Roles = "Admin,User")]
     public class PostController : ControllerBase
     {
         private readonly IPostService _postService;
@@ -17,6 +17,7 @@ namespace BlogApi.Controllers
             _postService = postService;
         }
         [HttpPost("Add")]
+        [Authorize(Roles = "Admin,User,Moderator")]
         public IActionResult AddPost(PostDto postDto)
         {
             if(!ModelState.IsValid)
@@ -31,6 +32,7 @@ namespace BlogApi.Controllers
             return Ok(post);
         }
         [HttpDelete("Remove")]
+        [Authorize(Roles = "Admin,Moderator")]
         public IActionResult Delete(int id)
         {
             if(!ModelState.IsValid)
@@ -45,6 +47,7 @@ namespace BlogApi.Controllers
             return Ok();
         }
         [HttpPost("Update")]
+        [Authorize(Roles = "Admin,User,Moderator")]
         public IActionResult Update(int  id,string description)
         {
             if(!ModelState.IsValid)
@@ -59,6 +62,7 @@ namespace BlogApi.Controllers
             return Ok(post);
         }
         [HttpGet("GetPost")]
+        [Authorize(Roles = "Admin,User,Moderator")]
         public IActionResult GetPost(int id)
         {
             if(!ModelState.IsValid)
@@ -74,6 +78,7 @@ namespace BlogApi.Controllers
             return Ok(post);
         }
         [HttpGet("GetAllPosts")]
+        [Authorize(Roles = "Admin,User,Moderator")]
         public IActionResult GetAllPosts()
         {
             var list = _postService.GetAllPosts();
